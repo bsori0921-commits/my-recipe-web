@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Todays recipe</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #faf7f2;
+            margin: 0;
+        }
+
+        header {
+            background-color: #e6a45c;
+            color: white;
+            text-align: center;
+            padding: 35px;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        input {
+            flex: 1;
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        button {
+            background-color: #d9863e;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .recipe {
+            background: white;
+            padding: 24px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px #00000012;
+        }
+
+        h2 {
+            color: #ba682d;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Todays recipe</h1>
+        <p>먹고 싶은 음식을 검색해 보세요!</p>
+    </header>
+
+    <main>
+        <form method="GET">
+            <input
+                type="text"
+                name="search"
+                placeholder="음식 이름을 입력하세요"
+                value="{{ keyword }}"
+            >
+            <button type="submit">검색</button>
+        </form>
+
+        {% for name, recipe in recipes.items() %}
+        <div class="recipe">
+            <h2>{{ name }}</h2>
+
+            <h3>준비 재료</h3>
+            <ul>
+                {% for item in recipe.ingredients %}
+                <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+
+            <h3>조리 순서</h3>
+            <ol>
+                {% for step in recipe.steps %}
+                <li>{{ step }}</li>
+                {% endfor %}
+            </ol>
+        </div>
+        {% else %}
+        <p>검색 결과가 없습니다.</p>
+        {% endfor %}
+    </main>
+</body>
+</html>
